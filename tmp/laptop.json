@@ -1,0 +1,62 @@
+{
+  "id": "f8764b1e-2090-436a-8ce7-0d049cb7646d",
+  "brand": "Lenovo",
+  "name": "Thinkpad X1",
+  "cpu": {
+    "brand": "AMD",
+    "name": "Ryzen 5 PRO 3500U",
+    "number_cores": 2695969993,
+    "number_threads": 1977891425,
+    "min_ghz": 2.783331095648779,
+    "max_ghz": 4.073010936627391
+  },
+  "ram": {
+    "value": "2952264508101178246",
+    "unit": "GIGABYTE"
+  },
+  "gpu": [
+    {
+      "brand": "Nvidia",
+      "name": "RTX 2060",
+      "min_ghz": 1.2128650259172424,
+      "max_ghz": 1.870215004546521,
+      "memory": {
+        "value": "9127909152658125845",
+        "unit": "GIGABYTE"
+      }
+    }
+  ],
+  "storages": [
+    {
+      "driver": "SSD",
+      "memory": {
+        "value": "3382497111372365611",
+        "unit": "GIGABYTE"
+      }
+    },
+    {
+      "driver": "HDD",
+      "memory": {
+        "value": "13352193043595281031",
+        "unit": "GIGABYTE"
+      }
+    }
+  ],
+  "screen": {
+    "size_inch": 13.922184,
+    "resolution": {
+      "width": 1703482738,
+      "height": 152902672
+    },
+    "panel": "IPS",
+    "multitouch": false
+  },
+  "keyboard": {
+    "layout": "AZERTY",
+    "backlit": true
+  },
+  "weight_kg": 2.3399593240953456,
+  "price_usd": 2174.103991957086,
+  "release_year": 1431842354,
+  "updated_at": "2024-03-08T14:07:38.022552838Z"
+}
