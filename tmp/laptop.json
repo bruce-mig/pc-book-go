@@ -1,27 +1,27 @@
 {
-  "id": "f8764b1e-2090-436a-8ce7-0d049cb7646d",
-  "brand": "Lenovo",
-  "name": "Thinkpad X1",
+  "id": "8cb88948-542d-4dfd-985b-d0ff0a2fbf74",
+  "brand": "Dell",
+  "name": "XPS",
   "cpu": {
     "brand": "AMD",
-    "name": "Ryzen 5 PRO 3500U",
-    "number_cores": 2695969993,
-    "number_threads": 1977891425,
-    "min_ghz": 2.783331095648779,
-    "max_ghz": 4.073010936627391
+    "name": "Ryzen 3 PRO 3200GE",
+    "number_cores": 1625825451,
+    "number_threads": 2963768503,
+    "min_ghz": 2.983268610467302,
+    "max_ghz": 3.0197344485348525
   },
   "ram": {
-    "value": "2952264508101178246",
+    "value": "9983840380250212821",
     "unit": "GIGABYTE"
   },
   "gpu": [
     {
-      "brand": "Nvidia",
-      "name": "RTX 2060",
-      "min_ghz": 1.2128650259172424,
-      "max_ghz": 1.870215004546521,
+      "brand": "AMD",
+      "name": "RX 5700-XT",
+      "min_ghz": 1.179417480231965,
+      "max_ghz": 1.7789083397012289,
       "memory": {
-        "value": "9127909152658125845",
+        "value": "517752172274672015",
         "unit": "GIGABYTE"
       }
     }
@@ -30,33 +30,33 @@
     {
       "driver": "SSD",
       "memory": {
-        "value": "3382497111372365611",
+        "value": "2699732198904182642",
         "unit": "GIGABYTE"
       }
     },
     {
       "driver": "HDD",
       "memory": {
-        "value": "13352193043595281031",
+        "value": "13753789104185601260",
         "unit": "GIGABYTE"
       }
     }
   ],
   "screen": {
-    "size_inch": 13.922184,
+    "size_inch": 14.46209,
     "resolution": {
-      "width": 1703482738,
-      "height": 152902672
+      "width": 2374942952,
+      "height": 2141211778
     },
     "panel": "IPS",
-    "multitouch": false
+    "multitouch": true
   },
   "keyboard": {
     "layout": "AZERTY",
     "backlit": true
   },
-  "weight_kg": 2.3399593240953456,
-  "price_usd": 2174.103991957086,
-  "release_year": 1431842354,
-  "updated_at": "2024-03-08T14:07:38.022552838Z"
+  "weight_kg": 2.865482535483604,
+  "price_usd": 2597.9056389026437,
+  "release_year": 343448679,
+  "updated_at": "2024-03-14T20:09:35.645116663Z"
 }
