@@ -4,10 +4,12 @@ import (
 	"bufio"
 	"context"
 	"flag"
+	"fmt"
 	"io"
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"gitlab.com/brucemig/pcbook/pb"
@@ -29,8 +31,60 @@ func main() {
 	}
 
 	laptopClient := pb.NewLaptopServiceClient(conn)
-	testUploadImage(laptopClient)
+	testRateLaptop(laptopClient)
 
+}
+
+func rateLaptop(laptopClient pb.LaptopServiceClient, laptopIDs []string, scores []float64) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+
+	stream, err := laptopClient.RateLaptop(ctx)
+	if err != nil {
+		return fmt.Errorf("cannot rate laptop: v%", err)
+	}
+
+	waitResponseCh := make(chan error)
+
+	// goroutine to receive responses
+	go func() {
+		for {
+			res, err := stream.Recv()
+			if err == io.EOF {
+				log.Print("no more responses")
+				waitResponseCh <- nil
+				return
+			}
+			if err != nil {
+				waitResponseCh <- fmt.Errorf("cannot receive stream response: %v", err)
+				return
+			}
+			log.Printf("received a rate-laptop response: [ id = %s | rated_count = %d | avg = %.2f ]", res.GetLaptopId(), res.GetRatedCount(), res.GetAverageScore())
+		}
+	}()
+
+	// send requests
+	for i, laptopID := range laptopIDs {
+		req := &pb.RateLaptopRequest{
+			LaptopId: laptopID,
+			Score:    scores[i],
+		}
+
+		err := stream.Send(req)
+		if err != nil {
+			return fmt.Errorf("cannot send stream request: %v - %v", err, stream.RecvMsg(nil))
+		}
+
+		log.Printf("sent a rate-laptop request: [ id = %s | score = %.2f ]", req.GetLaptopId(), req.GetScore())
+	}
+
+	err = stream.CloseSend()
+	if err != nil {
+		return fmt.Errorf("cannot close send: %v", err)
+	}
+
+	err = <-waitResponseCh
+	return err
 }
 
 func testCreateLaptop(laptopClient pb.LaptopServiceClient) {
@@ -56,6 +110,38 @@ func testUploadImage(laptopClient pb.LaptopServiceClient) {
 	laptop := sample.NewLaptop()
 	createLaptop(laptopClient, laptop)
 	uploadImage(laptopClient, laptop.GetId(), "tmp/laptop.jpeg")
+}
+
+func testRateLaptop(laptopClient pb.LaptopServiceClient) {
+	n := 3
+	laptopIDs := make([]string, n)
+
+	for i := 0; i < n; i++ {
+		laptop := sample.NewLaptop()
+		laptopIDs[i] = laptop.GetId()
+		createLaptop(laptopClient, laptop)
+	}
+
+	scores := make([]float64, n)
+	for {
+		fmt.Printf("rate laptop (y/n)?")
+		var answer string
+		fmt.Scan(&answer)
+
+		if strings.ToLower(answer) != "y" {
+			break
+		}
+
+		for i := 0; i < n; i++ {
+			scores[i] = sample.RandomLaptopScore()
+		}
+
+		err := rateLaptop(laptopClient, laptopIDs, scores)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+	}
 }
 
 func createLaptop(laptopClient pb.LaptopServiceClient, laptop *pb.Laptop) {
