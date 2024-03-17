@@ -125,6 +125,10 @@ func NewLaptop() *pb.Laptop {
 }
 
 // RandomLaptopScore returns a random laptop score
+// func RandomLaptopScore() float64 {
+// 	return float64(randomInt(1, 10))
+// }
+
 func RandomLaptopScore() float64 {
-	return float64(randomInt(1, 10))
+	return randomFloat64(1, 10)
 }
