@@ -1,27 +1,27 @@
 {
-  "id": "8cb88948-542d-4dfd-985b-d0ff0a2fbf74",
+  "id": "3a8ccc6c-cae0-42b6-8bce-520e4973deb9",
   "brand": "Dell",
   "name": "XPS",
   "cpu": {
-    "brand": "AMD",
-    "name": "Ryzen 3 PRO 3200GE",
-    "number_cores": 1625825451,
-    "number_threads": 2963768503,
-    "min_ghz": 2.983268610467302,
-    "max_ghz": 3.0197344485348525
+    "brand": "Intel",
+    "name": "Core i3-1005G1",
+    "number_cores": 1264920534,
+    "number_threads": 1151136474,
+    "min_ghz": 2.068880672353264,
+    "max_ghz": 2.7051755782864677
   },
   "ram": {
-    "value": "9983840380250212821",
+    "value": "1886341835393271896",
     "unit": "GIGABYTE"
   },
   "gpu": [
     {
       "brand": "AMD",
-      "name": "RX 5700-XT",
-      "min_ghz": 1.179417480231965,
-      "max_ghz": 1.7789083397012289,
+      "name": "RX 590",
+      "min_ghz": 1.3970193516702696,
+      "max_ghz": 1.7228680367288876,
       "memory": {
-        "value": "517752172274672015",
+        "value": "4744516766479468011",
         "unit": "GIGABYTE"
       }
     }
@@ -30,33 +30,33 @@
     {
       "driver": "SSD",
       "memory": {
-        "value": "2699732198904182642",
+        "value": "4829333779780053391",
         "unit": "GIGABYTE"
       }
     },
     {
       "driver": "HDD",
       "memory": {
-        "value": "13753789104185601260",
+        "value": "3204805583084180317",
         "unit": "GIGABYTE"
       }
     }
   ],
   "screen": {
-    "size_inch": 14.46209,
+    "size_inch": 16.13442,
     "resolution": {
-      "width": 2374942952,
-      "height": 2141211778
+      "width": 3495452214,
+      "height": 1429320958
     },
-    "panel": "IPS",
-    "multitouch": true
+    "panel": "OLED",
+    "multitouch": false
   },
   "keyboard": {
     "layout": "AZERTY",
     "backlit": true
   },
-  "weight_kg": 2.865482535483604,
-  "price_usd": 2597.9056389026437,
-  "release_year": 343448679,
-  "updated_at": "2024-03-14T20:09:35.645116663Z"
+  "weight_kg": 1.4680185708851492,
+  "price_usd": 2807.736156045582,
+  "release_year": 343774397,
+  "updated_at": "2024-03-24T19:32:48.215052062Z"
 }
