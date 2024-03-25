@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/spf13/viper"
 	"gitlab.com/brucemig/pcbook/client"
 	"gitlab.com/brucemig/pcbook/pb"
 	"gitlab.com/brucemig/pcbook/sample"
@@ -14,15 +15,27 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-// TODO: use .env file
 const (
-	username = "admin1"
-	// username        = "user1"
-	password        = "secret"
 	refreshDuration = 30 * time.Second
 )
 
 func main() {
+	viper.SetConfigName(".env") // name of the config file (without extension)
+	viper.AddConfigPath(".")    // path to look for the config file in
+	viper.SetConfigType("env")  // REQUIRED if the config file does not have the extension in the name
+	viper.AutomaticEnv()        // read in environment variables that match
+
+	// If a config file is found, read it in.
+	if err := viper.ReadInConfig(); err == nil {
+		fmt.Println("Using config file:", viper.ConfigFileUsed())
+	} else {
+		log.Fatalf("Error while reading config file %s", err)
+	}
+
+	// for _, key := range viper.AllKeys() {
+	// 	fmt.Printf("Key: %s, Value: %s\n", key, viper.GetString(key))
+	// }
+
 	serverAddress := flag.String("address", "", "the server address")
 	flag.Parse()
 	log.Printf("dial server %s", *serverAddress)
@@ -32,8 +45,8 @@ func main() {
 		log.Fatal("cannot dial server:", err)
 	}
 
-	authClient := client.NewAuthClient(cc1, username, password)
-	interceptor, err := client.NewAuthInterceptor(authClient, authMethods(), refreshDuration)
+	authClient := client.NewAuthClient(cc1, viper.GetString("USERNAME1"), viper.GetString("PASSWORD"))
+	interceptor, err := client.NewAuthInterceptor(authClient, authMethods(), viper.GetDuration("REFRESH_DURATION")*time.Second)
 	if err != nil {
 		log.Fatal("cannot create new interceptor: ", err)
 	}
