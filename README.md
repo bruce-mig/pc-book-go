@@ -90,3 +90,9 @@ make client
 ```bash
 make cert
 ```
+
+## Run Docker container
+
+```bash
+docker run -it --rm --name pc-book-go -p 8080:8080 bmigeri/pc-book-go:latest
+```
