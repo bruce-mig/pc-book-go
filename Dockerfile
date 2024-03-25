@@ -18,8 +18,8 @@ RUN mkdir /app
 
 COPY --from=builder /app/pcbookApp /app
 
-COPY .env /app
+COPY .env .
 
 EXPOSE 8080 
 
-CMD ["/app/pcbookApp"]
+CMD ["/app/pcbookApp", "-port", "8080"]

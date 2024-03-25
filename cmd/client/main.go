@@ -15,10 +15,6 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-const (
-	refreshDuration = 30 * time.Second
-)
-
 func main() {
 	viper.SetConfigName(".env") // name of the config file (without extension)
 	viper.AddConfigPath(".")    // path to look for the config file in
