@@ -15,7 +15,7 @@ services:
   server1:
     build:
       context: .
-      dockerfile: server1.dockerfile
+      dockerfile: server1-tls.dockerfile
     restart: always
     deploy:
       mode: replicated
@@ -25,7 +25,7 @@ services:
   server2:
     build:
       context: .
-      dockerfile: server2.dockerfile
+      dockerfile: server2-tls.dockerfile
     restart: always
     deploy:
       mode: replicated
