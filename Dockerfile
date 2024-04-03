@@ -22,4 +22,4 @@ COPY .env .
 
 EXPOSE 8080 
 
-CMD ["/app/pcbookApp", "-port", "8080"]
+CMD ["/app/pcbookApp", "-port", "8080", "tls"]
