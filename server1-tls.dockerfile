@@ -20,6 +20,11 @@ COPY --from=builder /app/pcbookApp /app
 
 COPY .env .
 
-EXPOSE 50052 
+RUN mkdir /cert
+COPY cert/server-cert.pem /cert
+COPY cert/server-key.pem /cert
+COPY cert/ca-cert.pem /cert
 
-CMD ["/app/pcbookApp", "-port", "50052"]
+EXPOSE 50051 
+
+CMD ["/app/pcbookApp", "-port", "50051", "-tls", "true"]
