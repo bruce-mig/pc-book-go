@@ -20,6 +20,6 @@ COPY --from=builder /app/pcbookApp /app
 
 COPY .env .
 
-EXPOSE 8080 
+EXPOSE 50051 
 
-CMD ["/app/pcbookApp", "-port", "8080", "tls"]
+CMD ["/app/pcbookApp", "-port", "50051"]

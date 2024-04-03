@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.dockerfile
+    volumes:
+      - type: bind
+        source: /home/migeri/Projects/pc-book/nginx/log/
+        target: /var/log/nginx/pcbook/
+        read_only: false
+    ports:
+      - 8080:8080
+
+  server1:
+    build:
+      context: .
+      dockerfile: server1.dockerfile
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+    ports:
+      - "50051:50051"
+  server2:
+    build:
+      context: .
+      dockerfile: server2.dockerfile
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+    ports:
+      - "50052:50052"
+    
