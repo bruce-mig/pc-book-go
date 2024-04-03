@@ -20,6 +20,11 @@ COPY --from=builder /app/pcbookApp /app
 
 COPY .env .
 
+RUN mkdir /cert
+COPY cert/server-cert.pem /cert
+COPY cert/server-key.pem /cert
+COPY cert/ca-cert.pem /cert
+
 EXPOSE 8080 
 
-CMD ["/app/pcbookApp", "-port", "8080", "tls"]
+CMD ["/app/pcbookApp", "-port", "8080", "-tls", "true"]
