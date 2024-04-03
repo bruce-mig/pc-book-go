@@ -16,6 +16,7 @@ import (
 	"gitlab.com/brucemig/pcbook/sample"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 func main() {
@@ -36,15 +37,22 @@ func main() {
 	// }
 
 	serverAddress := flag.String("address", "", "the server address")
+	enableTLS := flag.Bool("tls", false, "enable SSL/TLS")
 	flag.Parse()
-	log.Printf("dial server %s", *serverAddress)
+	log.Printf("dial server %s, TLS = %t", *serverAddress, *enableTLS)
 
-	tlsCredentials, err := loadTLSCredentials()
-	if err != nil {
-		log.Fatal("cannot load TLS credentials: ", err)
+	transportOption := grpc.WithTransportCredentials(insecure.NewCredentials())
+
+	if *enableTLS {
+		tlsCredentials, err := loadTLSCredentials()
+		if err != nil {
+			log.Fatal("cannot load TLS credentials: ", err)
+		}
+
+		transportOption = grpc.WithTransportCredentials(tlsCredentials)
 	}
 
-	cc1, err := grpc.Dial(*serverAddress, grpc.WithTransportCredentials(tlsCredentials))
+	cc1, err := grpc.Dial(*serverAddress, transportOption)
 	if err != nil {
 		log.Fatal("cannot dial server:", err)
 	}
@@ -52,11 +60,11 @@ func main() {
 	authClient := client.NewAuthClient(cc1, viper.GetString("USERNAME1"), viper.GetString("PASSWORD"))
 	interceptor, err := client.NewAuthInterceptor(authClient, authMethods(), viper.GetDuration("REFRESH_DURATION")*time.Second)
 	if err != nil {
-		log.Fatal("cannot create new interceptor: ", err)
+		log.Fatal("cannot create auth interceptor: ", err)
 	}
 
 	cc2, err := grpc.Dial(*serverAddress,
-		grpc.WithTransportCredentials(tlsCredentials),
+		transportOption,
 		grpc.WithUnaryInterceptor(interceptor.Unary()),
 		grpc.WithStreamInterceptor(interceptor.Stream()),
 	)
