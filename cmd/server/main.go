@@ -126,7 +126,7 @@ func runGRPCServer(
 	pb.RegisterLaptopServiceServer(grpcServer, laptopServer)
 	reflection.Register(grpcServer)
 
-	log.Printf("gRPC server listening on port %d, TLS = %t", listener.Addr().String(), enableTLS)
+	log.Printf("gRPC server listening on port %s, TLS = %t", listener.Addr().String(), enableTLS)
 	return grpcServer.Serve(listener)
 }
 
@@ -155,7 +155,7 @@ func runRESTServer(
 	if err != nil {
 		return err
 	}
-	log.Printf("REST server listening on port %d, TLS = %t", listener.Addr().String(), enableTLS)
+	log.Printf("REST server listening on port %s, TLS = %t", listener.Addr().String(), enableTLS)
 	if enableTLS {
 		return http.ServeTLS(listener, mux, serverCertFile, serverKeyFile)
 	}
